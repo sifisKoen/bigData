@@ -39,3 +39,8 @@ If you see something like this that means you have your image.
 To run your image you just need:
 
 `sudo docker run body-temp-app`
+
+
+## Run docker under network 
+
+`sudo docker run --network=ehealth-net body-temp-app`
