@@ -5,7 +5,7 @@ import pika
 def connect_to_rabbit():
     # Define the connection parameters
     connection_params = pika.ConnectionParameters(
-        host='localhost',  # Replace with the hostname of your RabbitMQ container
+        host='my-rabbitmq',  # Replace with the hostname of your RabbitMQ container
         port=5672,            # Default RabbitMQ port
         credentials=pika.PlainCredentials('guest', 'guest')
     )
