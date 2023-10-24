@@ -1,6 +1,10 @@
 # bigData
 
 
+## Create Docker network
+
+`docker network create ehealth-net`
+
 ## Sensors
 
 For sensors we used Go lang. And encapsulated them in Docker containers. Each Sensor is in a separate directory for better organize. In each directory there is a `Dockerfile` for the sensors so to create our containers.
@@ -38,9 +42,23 @@ If you see something like this that means you have your image.
 
 To run your image you just need:
 
-`sudo docker run body-temp-app`
-
-
 ## Run docker under network 
 
 `sudo docker run --network=ehealth-net body-temp-app`
+
+
+## Run rubbitMQ
+
+```cmd
+docker run -d --name my-rabbitmq \
+    --network ehealth-net \
+    -p 5672:5672 \
+    -p 15672:15672 \
+    -e RABBITMQ_DEFAULT_USER=guest \
+    -e RABBITMQ_DEFAULT_PASS=guest \
+    rabbitmq:management
+```
+
+## Run Python
+
+`python3 main.py`
