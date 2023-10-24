@@ -1,5 +1,0 @@
-FROM golang:latest 
-WORKDIR /scaleSensor
-COPY . .
-RUN go build -o scaleSensorApp scaleSensor.go
-CMD ["./bloodSugarApp"]
