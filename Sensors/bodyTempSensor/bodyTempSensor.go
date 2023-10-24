@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 func readFromBodyTempSensor() float64 {
@@ -10,5 +11,9 @@ func readFromBodyTempSensor() float64 {
 }
 
 func main() {
-	fmt.Println("Body temp Sensor Reading: ", readFromBodyTempSensor(), "C")
+	for {
+		fmt.Println("Body temp Sensor Reading: ", readFromBodyTempSensor(), "C")
+		time.Sleep(5 * time.Second)
+	}
+
 }
