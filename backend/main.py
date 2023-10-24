@@ -3,6 +3,7 @@ import pika
 import psycopg2
 
 def add_data_to_db(message, cur):
+    message = str(message)
     insert_data_query = """
             INSERT INTO body_temp (message) 
             VALUES (%s);
@@ -38,7 +39,7 @@ if __name__ == "__main__":
     channel.queue_declare(queue=queue_name)
 
     # Define a callback function to process incoming messages
-    def callback(ch, method, properties, body, my_additional_argument):
+    def callback(ch, method, properties, body, my_additional_argument):        
         cur = my_additional_argument
         message = body.decode('utf-8')
         print(cur)
@@ -84,8 +85,8 @@ if __name__ == "__main__":
     my_additional_argument = cur
     while True:
         # Set up the consumer
-        # channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
-        on_message_callback=lambda ch, method, properties, body: callback(ch, method, properties, body, my_additional_argument),
+                
+        channel.basic_consume(queue=queue_name, on_message_callback=lambda ch, method, properties, body: callback(ch, method, properties, body, my_additional_argument), auto_ack=True)
         channel.start_consuming()
 
 
