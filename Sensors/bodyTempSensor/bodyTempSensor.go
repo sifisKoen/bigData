@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"time"
-	"log"
+
 	"github.com/streadway/amqp"
 )
 
