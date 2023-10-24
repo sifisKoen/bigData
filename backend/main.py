@@ -2,13 +2,13 @@ import time
 import pika
 import psycopg2
 
-def add_data_to_db(id, message, cur):
+def add_data_to_db(message, cur):
     insert_data_query = """
-            INSERT INTO body_temp (id, message) 
-            VALUES (%s, %s);
+            INSERT INTO body_temp (message) 
+            VALUES (%s);
         """
     # Execute the SQL query to insert data
-    cur.execute(insert_data_query, (timestamp, temperature))
+    cur.execute(insert_data_query, (message))
 
     # Commit the transaction
     print("Data inserted into 'body_temp' table successfully.")
@@ -17,7 +17,7 @@ def add_data_to_db(id, message, cur):
 def connect_to_rabbit():
     # Define the connection parameters
     connection_params = pika.ConnectionParameters(
-        host='my-rabbitmq',  # Replace with the hostname of your RabbitMQ container
+        host='localhost',  # Replace with the hostname of your RabbitMQ container
         port=5672,            # Default RabbitMQ port
         credentials=pika.PlainCredentials('guest', 'guest')
     )
@@ -41,17 +41,18 @@ if __name__ == "__main__":
     def callback(ch, method, properties, body, my_additional_argument):
         cur = my_additional_argument
         message = body.decode('utf-8')
-        add_data_to_db(id, message, curs)
+        print(cur)
+        add_data_to_db(message, cur)
         print(f"Added message: {message}")
         
 
     # connect to postgres
     # PostgreSQL connection parameters
     db_params = {
-        'dbname': 'healthdb',
+        'dbname': 'ehealth_db',
         'user': 'guest',
         'password': 'guest',
-        'host': 'my-postgres',  # Replace with the hostname or IP of your PostgreSQL container
+        'host': 'localhost',  # Replace with the hostname or IP of your PostgreSQL container
         'port': '5432'  # Default PostgreSQL port
     }
 
