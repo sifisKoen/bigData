@@ -61,4 +61,5 @@ docker run -d --name my-rabbitmq \
 
 ## Run Python
 
-`python3 main.py`
+`sudo docker build -t ehealth-backend  .`
+`sudo docker run -d --name ehealth-backend --network ehealth-net ehealth-backend`
